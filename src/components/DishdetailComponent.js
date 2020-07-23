@@ -1,11 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Card, CardImg, CardText, CardBody, CardTitle } from 'reactstrap';
 
-class Dishdetail extends Component{
-    constructor(props) {
-        super(props);
-    }
-    renderComments(comments){
+    function RenderComments({comments}){
         return comments.map((cmnt)=>{
             return (
                 <div key={cmnt.id}>
@@ -16,14 +12,14 @@ class Dishdetail extends Component{
         });
 
     }
-    renderDish(dish){
+    function RenderDish({dish}){
         if(dish != null){
             return(
                 <Card>
-                    <CardImg width="100%" object src={this.props.dish.image} alt={this.props.dish.name} />
+                    <CardImg width="100%" object src={dish.image} alt={dish.name} />
                     <CardBody>
-                        <CardTitle>{this.props.dish.name}</CardTitle>
-                        <CardText>{this.props.dish.description}</CardText>
+                        <CardTitle>{dish.name}</CardTitle>
+                        <CardText>{dish.description}</CardText>
                     </CardBody>
                 </Card>
             );
@@ -34,23 +30,23 @@ class Dishdetail extends Component{
             )
         }
     }
-    render(){
-        if(this.props.dish==null){
+    const DishDetail = (props) =>{
+        if(props.dish==null){
             return (<div></div>)
         }
         return (
             <div className="container">
             <div className="row col-md-12">
             <div className="col-12 col-md-5 m-1">
-                {this.renderDish(this.props.dish)}
+                <RenderDish dish={props.dish} />
             </div>
             <div className="col-12 col-md-5 m-1 list-unstyled ml-3">
             <h4>Comments</h4>
-            {this.renderComments(this.props.dish.comments)}
+            <RenderComments comments={props.dish.comments} />
             </div>
             </div>
             </div>
         );
     }
-}
-export default Dishdetail;
+        
+export default DishDetail;
